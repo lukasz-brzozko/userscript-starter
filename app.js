@@ -1,16 +1,16 @@
-const {
+import {
   appendFileSync,
   createReadStream,
   readFileSync,
   writeFileSync,
-} = require("fs");
-const { resolve } = require("path");
-const readline = require("readline");
+} from "fs";
+import { resolve } from "path";
+import readline from "readline";
 
 const PATHS = {
-  distMeta: resolve(__dirname, "dist", "index.meta.js"),
-  distUser: resolve(__dirname, "dist", "index.user.js"),
-  indexUser: resolve(__dirname, "src", "index.user.js"),
+  distMeta: resolve(import.meta.dirname, "dist", "index.meta.js"),
+  distUser: resolve(import.meta.dirname, "dist", "index.user.js"),
+  indexUser: resolve(import.meta.dirname, "src", "index.user.js"),
 };
 
 const copySrcMeta = () => {
