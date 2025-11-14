@@ -7,7 +7,8 @@ A modern, well-structured starter template for creating browser userscripts. Thi
 - 🪄 **Modern JavaScript** - Write ES6+ code that gets transpiled for browser compatibility
 - 🔧 **Babel Integration** - Automatic code transpilation using Babel
 - 📝 **ESLint Configuration** - Code quality and consistency checks
-- 🎨 **Prettier Support** - Automatic code formatting
+- 🎨 **Stylelint Support** - CSS-in-JS linting and style validation
+- ✨ **Prettier Support** - Automatic code formatting
 - 🏗️ **Build System** - Automated build process that generates both `.user.js` and `.meta.js` files
 - 📦 **Ready to Use** - Includes example code structure and helper functions
 
@@ -67,6 +68,8 @@ npm run build
 
 - `npm run build` - Builds the userscript (copies source and transpiles with Babel)
 - `npm run format` - Formats code using Prettier
+- `npm run stylelint` - Lints CSS-in-JS code using Stylelint
+- `npm run stylelint:fix` - Automatically fixes CSS-in-JS linting issues
 
 ## How It Works
 
@@ -85,8 +88,8 @@ The starter template includes:
 - **IDS Object** - Centralized element IDs
 - **MESSAGES Object** - Centralized messages and error handling
 - **Helper Functions**:
-  - `css` - Tagged template literal for CSS (works with Prettier)
-  - `html` - Tagged template literal for HTML (works with Prettier)
+  - `css` - Tagged template literal for CSS (works with Prettier and Stylelint)
+  - `html` - Tagged template literal for HTML (works with Prettier and Stylelint)
   - `linkStyles()` - Function to inject CSS styles
   - `lookForAppContainer()` - Waits for DOM elements to appear
   - `renderUiElements()` - Renders UI elements
@@ -118,6 +121,14 @@ Edit `eslint.config.js` to customize linting rules. The configuration includes:
 ### Prettier
 
 Modify the `.prettierrc` file to customize formatting options.
+
+### Stylelint
+
+Edit `stylelint.config.js` to customize CSS-in-JS linting rules. The configuration includes:
+
+- Standard Stylelint rules
+- Clean order plugin for CSS property ordering
+- PostCSS Styled Syntax support for CSS-in-JS (works with tagged template literals like the `css` helper function)
 
 ## Publishing
 
