@@ -28,12 +28,15 @@
 
   let container;
 
+  // Helper functions for tagged template literals (for Prettier formatting)
+  const css = String.raw;
+  const html = String.raw;
+
   const linkStyles = async () => {
     const styleTag = document.createElement("style");
-    styleTag.textContent = /*css*/ `
-    body {
-    
-    }
+    styleTag.textContent = css`
+      body {
+      }
     `;
 
     document.body.prepend(styleTag);
@@ -42,7 +45,7 @@
   const handleContainerNotFound = () => {
     window.console.error(
       `%c ${MESSAGES.error.containerNotFound}`,
-      "background: red; color: #fff; font-size: 20px"
+      "background: red; color: #fff; font-size: 20px",
     );
   };
 
@@ -57,7 +60,7 @@
           clearInterval(setIntervalId);
           window.console.info(
             `%c ${MESSAGES.containerFound}`,
-            "background: #B7E1CD; color: #000; font-size: 20px"
+            "background: #B7E1CD; color: #000; font-size: 20px",
           );
           resolve({ container });
         } else {
@@ -75,10 +78,10 @@
   };
 
   const renderUiElements = () => {
-    container.innerHTML = /*html*/ `
-    <div class="container">
-      <h1>Hello World</h1>
-    </div>
+    container.innerHTML = html`
+      <div class="container">
+        <h1>Hello World</h1>
+      </div>
     `;
   };
 
