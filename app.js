@@ -1,8 +1,8 @@
 const {
-  writeFileSync,
   appendFileSync,
   createReadStream,
   readFileSync,
+  writeFileSync,
 } = require("fs");
 const { resolve } = require("path");
 const readline = require("readline");

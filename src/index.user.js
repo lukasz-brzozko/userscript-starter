@@ -30,7 +30,7 @@
 
   const linkStyles = async () => {
     const styleTag = document.createElement("style");
-    styleTag.textContent = `
+    styleTag.textContent = /*css*/ `
     body {
     
     }
@@ -75,16 +75,20 @@
   };
 
   const renderUiElements = () => {
-    console.log("renderUiElements");
+    container.innerHTML = /*html*/ `
+    <div class="container">
+      <h1>Hello World</h1>
+    </div>
+    `;
   };
 
   const init = async () => {
     try {
       await lookForAppContainer();
     } catch (err) {
+      console.error(err);
       return handleContainerNotFound();
     }
-
     linkStyles();
     renderUiElements();
   };
