@@ -28,14 +28,15 @@
 
   let container;
 
-  // Helper functions for tagged template literals (for Prettier formatting)
+  // Helper functions for tagged template literals (for Prettier and Stylelint formatting)
   const css = String.raw;
   const html = String.raw;
 
   const linkStyles = async () => {
     const styleTag = document.createElement("style");
     styleTag.textContent = css`
-      body {
+      #container {
+        background-color: #f31260;
       }
     `;
 
