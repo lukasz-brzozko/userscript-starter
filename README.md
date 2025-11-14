@@ -133,7 +133,7 @@ If you want to enable auto-updates for your userscript:
 
 ## License
 
-ISC
+MIT
 
 ## Author
 
