@@ -2,8 +2,8 @@ import {
   handleContainerNotFound,
   lookForAppContainer,
   renderUiElements,
-} from "./utils/dom";
-import { linkStyles } from "./utils/styles";
+} from "@/utils/dom";
+import { linkStyles } from "@/utils/styles";
 
 (function () {
   "use strict";

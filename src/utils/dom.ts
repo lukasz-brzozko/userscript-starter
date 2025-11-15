@@ -1,4 +1,4 @@
-import { IDS, MESSAGES } from "../constants";
+import { IDS, MESSAGES } from "@/constants";
 
 export const lookForAppContainer = async (): Promise<{
   container: HTMLElement;
