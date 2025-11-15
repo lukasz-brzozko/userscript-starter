@@ -1,15 +1,16 @@
 # Userscript Starter
 
-A modern, well-structured starter template for creating browser userscripts. This template provides a solid foundation for developing userscripts with modern JavaScript, build tools, and best practices.
+A modern, well-structured starter template for creating browser userscripts. This template provides a solid foundation for developing userscripts with TypeScript, Vite.
 
 ## Features
 
-- 🪄 **Modern JavaScript** - Write ES6+ code that gets transpiled for browser compatibility
-- 🔧 **Babel Integration** - Automatic code transpilation using Babel
-- 📝 **ESLint Configuration** - Code quality and consistency checks
+- 🪄 **TypeScript** - Write type-safe code that gets compiled for browser compatibility
+- ⚡ **Vite** - Fast build tool with hot module replacement and watch mode
+- 📝 **ESLint Configuration** - Code quality and consistency checks with TypeScript support
 - 🎨 **Stylelint Support** - CSS-in-JS linting and style validation
 - ✨ **Prettier Support** - Automatic code formatting
-- 🏗️ **Build System** - Automated build process that generates both `.user.js` and `.meta.js` files
+- 🏗️ **Build System** - Automated build process that merges metadata with compiled code
+- 🚀 **Development Server** - Local dev server for testing userscripts with Violentmonkey
 - 📦 **Ready to Use** - Includes example code structure and helper functions
 
 ## Prerequisites
@@ -19,9 +20,9 @@ Before you begin, ensure you have the following installed:
 - **Node.js** (v22 or higher recommended)
 - **npm** (comes with Node.js)
 - A userscript manager browser extension:
-  - [Tampermonkey](https://www.tampermonkey.net/) (Chrome, Firefox, Edge, Safari)
-  - [Violentmonkey](https://violentmonkey.github.io/) (Chrome, Firefox, Edge)
-  - [Greasemonkey](https://www.greasespot.net/) (Firefox)
+  - [Violentmonkey](https://violentmonkey.github.io/) (recommended)
+  - [Tampermonkey](https://www.tampermonkey.net/)
+  - [Greasemonkey](https://www.greasespot.net/)
 
 ## Installation
 
@@ -42,8 +43,13 @@ npm install
 
 ### Development
 
-1. Edit the userscript in `src/index.user.js`
-2. Update the userscript metadata header (the `// ==UserScript==` section) with your script details:
+1. Edit the userscript source files in `src/`:
+   - `src/main.ts` - Main entry point
+   - `src/metadata/meta.ts` - Userscript metadata header
+   - `src/utils/` - Utility functions
+   - `src/constants.ts` - Constants and configuration
+
+2. Update the userscript metadata header in `src/metadata/meta.ts` (the `// ==UserScript==` section) with your script details:
    - `@name` - Your script name
    - `@namespace` - Your namespace URL
    - `@version` - Version number or date
@@ -52,32 +58,53 @@ npm install
    - `@author` - Your name
    - `@updateURL` / `@downloadURL` - URLs for auto-updates (if hosting)
 
-3. Build the userscript:
+3. Start the development server:
 
 ```bash
-npm run build
+npm run dev
 ```
 
-4. Install the compiled userscript:
+This will:
+
+- Start a Vite dev server on `http://localhost:5173`
+- Watch for file changes and rebuild automatically
+- Serve the userscript at `http://localhost:5173/dist/index.user.js`
+
+4. Install the userscript from the dev server:
    - Open your userscript manager (Tampermonkey, Violentmonkey, etc.)
    - Click "Create a new script" or "Add script"
-   - Copy the contents of `dist/index.user.js` into the editor
+   - Install from URL: `http://localhost:5173/dist/index.user.js`
+   - Or copy the contents of `dist/index.user.js` into the editor
    - Save the script
+
+5. For production builds:
+
+```bash
+npx vite build
+```
+
+This will create a production-ready `dist/index.user.js` file.
 
 ### Available Scripts
 
-- `npm run build` - Builds the userscript (copies source and transpiles with Babel)
-- `npm run format` - Formats code using Prettier
+- `npm run dev` - Starts Vite dev server with watch mode (runs `vite` and `vite build --watch` concurrently)
+- `npx vite build` - Builds the userscript for production
+- `npm run format` - Formats code using Prettier (currently formats `.js` files)
 - `npm run stylelint` - Lints CSS-in-JS code using Stylelint
 - `npm run stylelint:fix` - Automatically fixes CSS-in-JS linting issues
 
 ## How It Works
 
-The build process (`npm run build`) performs the following steps:
+The build process performs the following steps:
 
-1. **Copy Metadata** - Extracts the userscript header (metadata) and saves it to `dist/index.meta.js`
-2. **Copy Source** - Copies the full source file to `dist/index.user.js`
-3. **Transpile** - Uses Babel to transpile the code for browser compatibility
+1. **Vite Compilation** - Vite compiles TypeScript source files (`src/main.ts`) and bundles them into `dist/index.user.js`
+2. **Post-build Processing** - The `postbuild.js` script automatically:
+   - Reads the metadata header from `src/metadata/meta.ts`
+   - Reads the compiled code from `dist/index.user.js`
+   - Merges them together, prepending the metadata header to the compiled code
+   - Writes the final `dist/index.user.js` file ready for installation
+
+The development server (`npm run dev`) runs both Vite's dev server and watch mode build concurrently, automatically rebuilding and serving the userscript whenever source files change.
 
 ## Customization
 
@@ -106,15 +133,25 @@ Modify these functions to suit your needs!
 
 ## Configuration
 
-### Babel
+### Vite
 
-Edit `babel.config.json` to customize transpilation settings. The default configuration uses `@babel/preset-env` for automatic browser compatibility.
+Edit `vite.config.ts` to customize the build process. The configuration includes:
+
+- Build entry point: `src/main.ts`
+- Output file: `dist/index.user.js`
+- Dev server on port 5173 with userscript serving middleware
+- Post-build hook that runs `postbuild.js` automatically
+
+### TypeScript
+
+Edit `tsconfig.json` to customize TypeScript compilation settings.
 
 ### ESLint
 
 Edit `eslint.config.js` to customize linting rules. The configuration includes:
 
 - Recommended JavaScript rules
+- TypeScript ESLint plugin for TypeScript support
 - Perfectionist plugin for code organization
 - Support for browser, Node.js, and Greasemonkey globals
 
@@ -135,9 +172,9 @@ Edit `stylelint.config.js` to customize CSS-in-JS linting rules. The configurati
 If you want to enable auto-updates for your userscript:
 
 1. Host your repository on GitHub (or another Git hosting service)
-2. Update the `@updateURL` and `@downloadURL` in the userscript header to point to the raw files:
+2. Update the `@updateURL` and `@downloadURL` in `src/metadata/meta.ts` to point to the raw files:
    ```
-   @updateURL    https://raw.githubusercontent.com/yourusername/yourrepo/main/dist/index.meta.js
+   @updateURL    https://raw.githubusercontent.com/yourusername/yourrepo/main/dist/index.user.js
    @downloadURL  https://raw.githubusercontent.com/yourusername/yourrepo/main/dist/index.user.js
    ```
 3. Users with userscript managers will automatically receive updates
