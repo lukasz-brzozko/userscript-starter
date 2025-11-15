@@ -8,7 +8,7 @@ export default defineConfig([
   { ...perfectionist.configs["recommended-natural"] },
   {
     files: ["**/*.js"],
-    ignores: ["app.js"],
+    ignores: ["postbuild.js"],
     languageOptions: {
       ecmaVersion: "latest",
       globals: {
@@ -19,7 +19,7 @@ export default defineConfig([
     },
   },
   {
-    files: ["app.js"],
+    files: ["postbuild.js"],
     languageOptions: {
       ecmaVersion: "latest",
       globals: {
