@@ -3,7 +3,7 @@ import { resolve } from "path";
 
 const PATHS = {
   distUser: resolve(import.meta.dirname, "dist", "index.user.js"),
-  srcMeta: resolve(import.meta.dirname, "src", "index.meta.js"),
+  srcMeta: resolve(import.meta.dirname, "src", "metadata", "meta.ts"),
 };
 
 const init = async () => {

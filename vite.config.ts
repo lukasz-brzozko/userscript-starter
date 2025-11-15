@@ -12,9 +12,11 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      watch: { include: ["src/**/*"] },
       input: "src/main.ts",
       output: { entryFileNames: "index.user.js" },
+    },
+    watch: {
+      include: "src/**/*",
     },
   },
   plugins: [
