@@ -24,6 +24,13 @@ Before you begin, ensure you have the following installed:
   - [Tampermonkey](https://www.tampermonkey.net/)
   - [Greasemonkey](https://www.greasespot.net/)
 
+### Recommended IDE Extensions
+
+For a better development experience, it's recommended to install the following IDE extensions:
+
+- **ESLint** - Provides real-time linting feedback and automatic fixes
+- **Stylelint** - Provides real-time CSS-in-JS linting and style validation
+
 ## Installation
 
 1. Clone or download this repository:
