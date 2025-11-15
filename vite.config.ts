@@ -1,15 +1,12 @@
-import { defineConfig } from "vite";
 import { exec } from "node:child_process";
-import { promisify } from "node:util";
-import { resolve } from "node:path";
 import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { promisify } from "node:util";
+import { defineConfig } from "vite";
 
 const execAsync = promisify(exec);
 
 export default defineConfig({
-  server: {
-    port: 5173,
-  },
   build: {
     rollupOptions: {
       input: "src/main.ts",
@@ -22,7 +19,6 @@ export default defineConfig({
   plugins: [
     // Serves the userscript file from dist with proper cache headers for Violentmonkey tracking
     {
-      name: "serve-userscript",
       configureServer(server) {
         server.middlewares.use((req, res, next) => {
           const url = (req as { url?: string }).url;
@@ -61,6 +57,7 @@ export default defineConfig({
           next();
         });
       },
+      name: "serve-userscript",
     },
     // Runs postbuild.js after the build is finished
     {
@@ -69,7 +66,7 @@ export default defineConfig({
         try {
           console.log("\x1b[32m%s\x1b[0m", "Running postbuild.js");
 
-          const { stdout, stderr } = await execAsync("node postbuild.js");
+          const { stderr, stdout } = await execAsync("node postbuild.js");
           if (stdout) console.log(stdout);
           if (stderr) console.error(stderr);
         } catch (error) {
@@ -78,4 +75,7 @@ export default defineConfig({
       },
     },
   ],
+  server: {
+    port: 5173,
+  },
 });

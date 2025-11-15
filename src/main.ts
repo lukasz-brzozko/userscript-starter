@@ -1,9 +1,9 @@
-import { linkStyles } from "./utils/styles.ts";
 import {
   handleContainerNotFound,
   lookForAppContainer,
   renderUiElements,
-} from "./utils/dom.ts";
+} from "./utils/dom";
+import { linkStyles } from "./utils/styles";
 
 (function () {
   "use strict";

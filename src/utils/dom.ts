@@ -1,6 +1,8 @@
-import { IDS, MESSAGES } from "../constants.js";
+import { IDS, MESSAGES } from "../constants";
 
-export const lookForAppContainer = async (): Promise<{ container: HTMLElement }> => {
+export const lookForAppContainer = async (): Promise<{
+  container: HTMLElement;
+}> => {
   return new Promise((resolve, reject) => {
     const maxAttempts = 50;
     let attempt = 0;
@@ -43,4 +45,3 @@ export const renderUiElements = (container: HTMLElement): void => {
     </div>
   `;
 };
-

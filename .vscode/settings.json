@@ -6,10 +6,12 @@
     "source.fixAll.stylelint": "always"
   },
   "eslint.validate": [
-    "javascript"
+    "javascript",
+    "typescript"
   ],
   "stylelint.validate": [
     "css",
-    "javascript"
+    "javascript",
+    "typescript"
   ],
 }

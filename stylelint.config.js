@@ -3,7 +3,7 @@ export default {
   overrides: [
     {
       customSyntax: "postcss-styled-syntax",
-      files: ["**/*.js"],
+      files: ["**/*.{js,ts}"],
     },
   ],
 };
