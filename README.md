@@ -1,13 +1,14 @@
 # Userscript Starter
 
-A modern, well-structured starter template for creating browser userscripts. This template provides a solid foundation for developing userscripts with TypeScript, Vite.
+A modern, well-structured starter template for creating browser userscripts. This template provides a solid foundation for developing userscripts with TypeScript, Vite, and SolidJS.
 
 ## Features
 
 - 🪄 **TypeScript** - Write type-safe code that gets compiled for browser compatibility
 - ⚡ **Vite** - Fast build tool with hot module replacement and watch mode
+- 🎯 **SolidJS** - Reactive UI library for building interactive components
 - 📝 **ESLint Configuration** - Code quality and consistency checks with TypeScript support
-- 🎨 **Stylelint Support** - CSS-in-JS linting and style validation
+- 🎨 **Stylelint Support** - CSS linting and style validation
 - ✨ **Prettier Support** - Automatic code formatting
 - 🏗️ **Build System** - Automated build process that merges metadata with compiled code
 - 🚀 **Development Server** - Local dev server for testing userscripts with Violentmonkey
@@ -51,10 +52,12 @@ npm install
 ### Development
 
 1. Edit the userscript source files in `src/`:
-   - `src/main.ts` - Main entry point
+   - `src/index.tsx` - Main entry point (SolidJS)
+   - `src/components/` - SolidJS components
    - `src/metadata/meta.ts` - Userscript metadata header
    - `src/utils/` - Utility functions
    - `src/constants.ts` - Constants and configuration
+   - `src/styles.css` - Global stylesheet
 
 2. Update the userscript metadata header in `src/metadata/meta.ts` (the `// ==UserScript==` section) with your script details:
    - `@name` - Your script name
@@ -102,15 +105,15 @@ This will create a production-ready `dist/index.user.js` file.
 
 - `npm run dev` - Starts Vite dev server with watch mode (runs `vite` and `vite build --watch` concurrently)
 - `npx vite build` - Builds the userscript for production
-- `npm run format` - Formats code using Prettier (currently formats `.js` files)
-- `npm run stylelint` - Lints CSS-in-JS code using Stylelint
-- `npm run stylelint:fix` - Automatically fixes CSS-in-JS linting issues
+- `npm run format` - Formats code using Prettier (formats `.js`, `.ts`, and `.tsx` files)
+- `npm run stylelint` - Lints CSS files and CSS-in-JS code using Stylelint
+- `npm run stylelint:fix` - Automatically fixes CSS and CSS-in-JS linting issues
 
 ## How It Works
 
 The build process performs the following steps:
 
-1. **Vite Compilation** - Vite compiles TypeScript source files (`src/main.ts`) and bundles them into `dist/index.user.js`
+1. **Vite Compilation** - Vite compiles TypeScript/TSX source files (`src/index.tsx`) with SolidJS support and bundles them into `dist/index.user.js`
 2. **Post-build Processing** - The `postbuild.js` script automatically:
    - Reads the metadata header from `src/metadata/meta.ts`
    - Reads the compiled code from `dist/index.user.js`
@@ -127,22 +130,21 @@ The starter template includes:
 
 - **IDS Object** - Centralized element IDs
 - **MESSAGES Object** - Centralized messages and error handling
+- **SolidJS Components** - Example `App` component demonstrating reactive UI
 - **Helper Functions**:
-  - `css` - Tagged template literal for CSS (works with Prettier and Stylelint)
-  - `html` - Tagged template literal for HTML (works with Prettier and Stylelint)
-  - `linkStyles()` - Function to inject CSS styles
-  - `lookForAppContainer()` - Waits for DOM elements to appear
-  - `renderUiElements()` - Renders UI elements
+  - `linkStyles()` - Function to inject CSS styles from `styles.css` into `<head>` as a `<link>` tag
+  - `lookForAppContainer()` - Waits for DOM elements to appear before rendering
+  - `handleContainerNotFound()` - Error handling when container is not found
 
 ### Example Usage
 
 The template includes an example that:
 
 - Waits for a container element with ID `container`
-- Injects custom styles
-- Renders a "Hello World" message
+- Loads CSS styles from `src/styles.css` and injects them into `<head>` as a `<link>` tag
+- Renders a SolidJS component (`App`) with reactive state (counter example)
 
-Modify these functions to suit your needs!
+Modify these functions and components to suit your needs!
 
 ## Configuration
 
@@ -150,14 +152,18 @@ Modify these functions to suit your needs!
 
 Edit `vite.config.ts` to customize the build process. The configuration includes:
 
-- Build entry point: `src/main.ts`
+- Build entry point: `src/index.tsx`
 - Output file: `dist/index.user.js`
+- SolidJS plugin for JSX/TSX support
 - Dev server on port 5173 with userscript serving middleware
 - Post-build hook that runs `postbuild.js` automatically
 
 ### TypeScript
 
-Edit `tsconfig.json` to customize TypeScript compilation settings.
+Edit `tsconfig.json` to customize TypeScript compilation settings. The configuration includes:
+
+- JSX support with `jsx: "preserve"` and `jsxImportSource: "solid-js"`
+- Path aliases (`@/*` for `src/*`)
 
 ### ESLint
 
@@ -174,11 +180,11 @@ Modify the `.prettierrc` file to customize formatting options.
 
 ### Stylelint
 
-Edit `stylelint.config.js` to customize CSS-in-JS linting rules. The configuration includes:
+Edit `stylelint.config.js` to customize CSS linting rules. The configuration includes:
 
 - Standard Stylelint rules
 - Clean order plugin for CSS property ordering
-- PostCSS Styled Syntax support for CSS-in-JS (works with tagged template literals like the `css` helper function)
+- Support for CSS files and CSS-in-JS (tagged template literals)
 
 ## Publishing
 
@@ -187,7 +193,7 @@ If you want to enable auto-updates for your userscript:
 1. Host your repository on GitHub (or another Git hosting service)
 2. Update the `@updateURL` and `@downloadURL` in `src/metadata/meta.ts` to point to the raw files:
    ```
-   @updateURL    https://raw.githubusercontent.com/yourusername/yourrepo/main/dist/index.user.js
+   @updateURL    https://raw.githubusercontent.com/yourusername/yourrepo/main/dist/index.meta.js
    @downloadURL  https://raw.githubusercontent.com/yourusername/yourrepo/main/dist/index.user.js
    ```
 3. Users with userscript managers will automatically receive updates
