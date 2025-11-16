@@ -1,6 +1,9 @@
 export const IDS = {
-  button: "button",
   container: "container",
+} as const;
+
+export const SELECTORS = {
+  container: `#${IDS.container}`,
 } as const;
 
 export const MESSAGES = {
