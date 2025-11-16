@@ -1,14 +1,14 @@
-// Helper function for tagged template literals (for Prettier and Stylelint formatting)
-const css = String.raw;
+import styles from "@/styles.css?raw";
 
 export const linkStyles = (): void => {
-  const styleTag = document.createElement("style");
-  styleTag.textContent = css`
-    #container {
-      background-color: #f31260;
-    }
-  `;
+  // Check if stylesheet is already added to avoid duplicates
+  const existingLink = document.querySelector("link[data-userscript-styles]");
+  if (existingLink) return;
 
-  document.body.prepend(styleTag);
+  const linkTag = document.createElement("link");
+  linkTag.rel = "stylesheet";
+  linkTag.href = `data:text/css;base64,${btoa(styles)}`;
+  linkTag.setAttribute("data-userscript-styles", "true");
+
+  document.head.appendChild(linkTag);
 };
-

@@ -34,14 +34,3 @@ export const handleContainerNotFound = (): void => {
     "background: red; color: #fff; font-size: 20px",
   );
 };
-
-export const renderUiElements = (container: HTMLElement): void => {
-  // Helper function for tagged template literals (for Prettier and Stylelint formatting)
-  const html = String.raw;
-
-  container.innerHTML = html`
-    <div class="container">
-      <h1>Hello World</h1>
-    </div>
-  `;
-};
