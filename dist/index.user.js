@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Userscript starter
 // @namespace    https://github.com/lukasz-brzozko/userscript-starter
-// @version      2024-05-21
+// @version      0.0.1
 // @description  Creates a new userscript
 // @author       Łukasz Brzózko
 // @match        https://github.com/
