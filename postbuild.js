@@ -2,6 +2,7 @@ import { readFile, writeFile } from "fs/promises";
 import { resolve } from "path";
 
 const PATHS = {
+  distMeta: resolve(import.meta.dirname, "dist", "index.meta.js"),
   distUser: resolve(import.meta.dirname, "dist", "index.user.js"),
   srcMeta: resolve(import.meta.dirname, "src", "metadata", "meta.ts"),
 };
@@ -11,6 +12,9 @@ const init = async () => {
   const userText = await readFile(PATHS.distUser, { encoding: "utf8" });
 
   await writeFile(PATHS.distUser, metaText + "\n" + userText, {
+    encoding: "utf8",
+  });
+  await writeFile(PATHS.distMeta, metaText, {
     encoding: "utf8",
   });
 };
