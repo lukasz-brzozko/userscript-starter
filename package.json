@@ -30,6 +30,10 @@
     "stylelint-config-clean-order": "^7.0.0",
     "stylelint-config-standard": "^39.0.1",
     "typescript": "^5.9.3",
-    "vite": "^7.2.2"
+    "vite": "^7.2.2",
+    "vite-plugin-solid": "^2.11.10"
+  },
+  "dependencies": {
+    "solid-js": "^1.9.10"
   }
 }

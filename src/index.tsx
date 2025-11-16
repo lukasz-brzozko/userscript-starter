@@ -1,8 +1,6 @@
-import {
-  handleContainerNotFound,
-  lookForAppContainer,
-  renderUiElements,
-} from "@/utils/dom";
+import { render } from "solid-js/web";
+import { App } from "@/components/App";
+import { handleContainerNotFound, lookForAppContainer } from "@/utils/dom";
 import { linkStyles } from "@/utils/styles";
 
 (function () {
@@ -12,7 +10,7 @@ import { linkStyles } from "@/utils/styles";
     try {
       const { container } = await lookForAppContainer();
       linkStyles();
-      renderUiElements(container);
+      render(() => <App />, container);
     } catch (err) {
       console.error(err);
       handleContainerNotFound();

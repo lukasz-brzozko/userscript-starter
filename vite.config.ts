@@ -3,13 +3,14 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { promisify } from "node:util";
 import { defineConfig } from "vite";
+import solid from "vite-plugin-solid";
 
 const execAsync = promisify(exec);
 
 export default defineConfig({
   build: {
     rollupOptions: {
-      input: "src/main.ts",
+      input: "src/index.tsx",
       output: { entryFileNames: "index.user.js" },
     },
     watch: {
@@ -17,6 +18,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    solid(),
     // Serves the userscript file from dist with proper cache headers for Violentmonkey tracking
     {
       configureServer(server) {
