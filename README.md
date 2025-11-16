@@ -20,7 +20,7 @@ Before you begin, ensure you have the following installed:
 - **Node.js** (v22 or higher recommended)
 - **npm** (comes with Node.js)
 - A userscript manager browser extension:
-  - [Violentmonkey](https://violentmonkey.github.io/) (recommended)
+  - [Violentmonkey](https://violentmonkey.github.io/) (recommended) - Highly recommended for development as it supports live tracking of local script files, automatically updating the script when you save changes to your local files. See [Violentmonkey's guide on editing scripts with external editors](https://violentmonkey.github.io/posts/how-to-edit-scripts-with-your-favorite-editor/) for more details.
   - [Tampermonkey](https://www.tampermonkey.net/)
   - [Greasemonkey](https://www.greasespot.net/)
 
@@ -83,6 +83,12 @@ This will:
    - Install from URL: `http://localhost:5173/dist/index.user.js`
    - Or copy the contents of `dist/index.user.js` into the editor
    - Save the script
+
+   **💡 Pro Tip for Violentmonkey Users**: For an even better development experience, use Violentmonkey's "Track external edits" feature:
+   - Navigate to `http://localhost:5173/dist/index.user.js` in your browser (Violentmonkey will automatically detect it as a userscript)
+   - Click "Track external edits" button in the installation dialog
+   - Now whenever you save changes to your source files and Vite rebuilds, Violentmonkey will automatically detect and update the script without manual reloading
+   - See the [official guide](https://violentmonkey.github.io/posts/how-to-edit-scripts-with-your-favorite-editor/) for detailed instructions
 
 5. For production builds:
 
