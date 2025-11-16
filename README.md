@@ -129,6 +129,7 @@ The development server (`npm run dev`) runs both Vite's dev server and watch mod
 The starter template includes:
 
 - **IDS Object** - Centralized element IDs
+- **SELECTORS Object** - Centralized JS selectors for targeting DOM elements
 - **MESSAGES Object** - Centralized messages and error handling
 - **SolidJS Components** - Example `App` component demonstrating reactive UI
 - **Helper Functions**:
