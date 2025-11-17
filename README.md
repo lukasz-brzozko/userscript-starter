@@ -13,6 +13,7 @@ A modern, well-structured starter template for creating browser userscripts. Thi
 - ✨ **Prettier Support** - Automatic code formatting
 - 🏗️ **Build System** - Automated build process that merges metadata with compiled code
 - 🚀 **Development Server** - Local dev server for testing userscripts with Violentmonkey
+- 🤖 **GitHub Actions** - Automated CI/CD workflow that builds and deploys to GitHub Pages
 - 📦 **Ready to Use** - Includes example code structure and helper functions
 
 ## Prerequisites
@@ -98,7 +99,7 @@ This will:
 5. For production builds:
 
 ```bash
-npx vite build
+npm run build
 ```
 
 This will create a production-ready `dist/index.user.js` file.
@@ -106,7 +107,7 @@ This will create a production-ready `dist/index.user.js` file.
 ### Available Scripts
 
 - `npm run dev` - Starts Vite dev server with watch mode (runs `vite` and `vite build --watch` concurrently)
-- `npx vite build` - Builds the userscript for production
+- `npm run build` - Builds the userscript for production
 - `npm run format` - Formats code using Prettier (formats `.js`, `.ts`, and `.tsx` files)
 - `npm run stylelint` - Lints SCSS files and CSS-in-JS code using Stylelint
 - `npm run stylelint:fix` - Automatically fixes SCSS and CSS-in-JS linting issues
@@ -195,15 +196,56 @@ Edit `stylelint.config.js` to customize CSS/SCSS linting rules. The configuratio
 
 ## Publishing
 
-If you want to enable auto-updates for your userscript:
+This template includes a GitHub Actions workflow that automatically builds and deploys your userscript to GitHub Pages. This ensures that:
 
-1. Host your repository on GitHub (or another Git hosting service)
-2. Update the `@updateURL` and `@downloadURL` in `src/metadata/meta.ts` to point to the raw files:
+- ✅ `dist` files are not committed to the repository (ignored by `.gitignore`)
+- ✅ Automatic builds on every push to `main`
+- ✅ Stable URLs for automatic updates (links don't change)
+- ✅ Users receive automatic updates through userscript managers
+
+### Setup GitHub Pages
+
+1. **Enable GitHub Pages in your repository:**
+   - Go to Settings → Pages in your repository
+   - In the "Source" section, select "GitHub Actions"
+
+2. **Update URLs in `src/metadata/meta.ts`:**
+
+   ```typescript
+   @updateURL    https://yourusername.github.io/yourrepo/index.meta.js
+   @downloadURL  https://yourusername.github.io/yourrepo/index.user.js
    ```
-   @updateURL    https://raw.githubusercontent.com/yourusername/yourrepo/main/dist/index.meta.js
-   @downloadURL  https://raw.githubusercontent.com/yourusername/yourrepo/main/dist/index.user.js
+
+   Replace `yourusername` and `yourrepo` with your actual values.
+
+3. **Push changes to `main`:**
+
+   ```bash
+   git push origin main
    ```
-3. Users with userscript managers will automatically receive updates
+
+4. **GitHub Actions will automatically:**
+   - Build the project (`npm run build`)
+   - Deploy `dist` files to GitHub Pages
+   - Make files available at stable URLs
+
+### Manual Build (Optional)
+
+If you want to build the project locally:
+
+```bash
+npm run build
+```
+
+This will create `dist/index.user.js` and `dist/index.meta.js` files locally (they won't be committed thanks to `.gitignore`).
+
+### Automatic Updates
+
+After configuring GitHub Pages, users with userscript managers (Tampermonkey, Violentmonkey, etc.) will automatically receive updates because:
+
+- URLs in `@updateURL` and `@downloadURL` are stable (they don't change with each update)
+- Userscript managers check `@updateURL` and compare the version with `@version` in metadata
+- When they detect a newer version, they automatically download and update the script
 
 ## License
 
