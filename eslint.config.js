@@ -9,7 +9,7 @@ export default defineConfig([
   { ...js.configs.recommended },
   { ...perfectionist.configs["recommended-natural"] },
   {
-    files: ["**/*.{js,ts}"],
+    files: ["**/*.{js,jsx,ts,tsx}"],
     ignores: ["postbuild.js"],
     languageOptions: {
       ecmaVersion: "latest",
@@ -37,5 +37,5 @@ export default defineConfig([
       },
     },
   },
-  globalIgnores(["node_modules", "dist"]),
+  globalIgnores(["node_modules", "dist", "**/vite-env.d.ts"]),
 ]);

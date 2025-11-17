@@ -1,7 +1,7 @@
 import { render } from "solid-js/web";
 import { App } from "@/components/App";
 import { handleContainerNotFound, lookForAppContainer } from "@/utils/dom";
-import { linkStyles } from "@/utils/styles";
+import { injectStyles } from "@/utils/styles";
 
 (function () {
   "use strict";
@@ -9,7 +9,7 @@ import { linkStyles } from "@/utils/styles";
   const init = async (): Promise<void> => {
     try {
       const { container } = await lookForAppContainer();
-      linkStyles();
+      injectStyles();
       render(() => <App />, container);
     } catch (err) {
       console.error(err);
