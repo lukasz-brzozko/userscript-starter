@@ -8,7 +8,8 @@ A modern, well-structured starter template for creating browser userscripts. Thi
 - ⚡ **Vite** - Fast build tool with hot module replacement and watch mode
 - 🎯 **SolidJS** - Reactive UI library for building interactive components
 - 📝 **ESLint Configuration** - Code quality and consistency checks with TypeScript support
-- 🎨 **Stylelint Support** - CSS linting and style validation
+- 🎨 **Stylelint Support** - SCSS linting and style validation
+- 🎨 **SCSS Support** - Write styles with SCSS and inject them using `GM_addStyle` API
 - ✨ **Prettier Support** - Automatic code formatting
 - 🏗️ **Build System** - Automated build process that merges metadata with compiled code
 - 🚀 **Development Server** - Local dev server for testing userscripts with Violentmonkey
@@ -57,7 +58,7 @@ npm install
    - `src/metadata/meta.ts` - Userscript metadata header
    - `src/utils/` - Utility functions
    - `src/constants.ts` - Constants and configuration
-   - `src/styles.css` - Global stylesheet
+   - `src/styles/` - SCSS stylesheets
 
 2. Update the userscript metadata header in `src/metadata/meta.ts` (the `// ==UserScript==` section) with your script details:
    - `@name` - Your script name
@@ -88,7 +89,8 @@ This will:
    - Save the script
 
    **💡 Pro Tip for Violentmonkey Users**: For an even better development experience, use Violentmonkey's "Track external edits" feature:
-   - Navigate to `http://localhost:5173/dist/index.user.js` in your browser (Violentmonkey will automatically detect it as a userscript)
+   - Navigate to `http://localhost:5173/` or `http://localhost:5173/dist/index.user.js` in your browser (Violentmonkey will automatically detect it as a userscript)
+   - The dev server is configured with proper cache headers (`Cache-Control: max-age=5`) to ensure Violentmonkey can track changes effectively
    - Click "Track external edits" button in the installation dialog
    - Now whenever you save changes to your source files and Vite rebuilds, Violentmonkey will automatically detect and update the script without manual reloading
    - See the [official guide](https://violentmonkey.github.io/posts/how-to-edit-scripts-with-your-favorite-editor/) for detailed instructions
@@ -106,8 +108,8 @@ This will create a production-ready `dist/index.user.js` file.
 - `npm run dev` - Starts Vite dev server with watch mode (runs `vite` and `vite build --watch` concurrently)
 - `npx vite build` - Builds the userscript for production
 - `npm run format` - Formats code using Prettier (formats `.js`, `.ts`, and `.tsx` files)
-- `npm run stylelint` - Lints CSS files and CSS-in-JS code using Stylelint
-- `npm run stylelint:fix` - Automatically fixes CSS and CSS-in-JS linting issues
+- `npm run stylelint` - Lints SCSS files and CSS-in-JS code using Stylelint
+- `npm run stylelint:fix` - Automatically fixes SCSS and CSS-in-JS linting issues
 
 ## How It Works
 
@@ -119,6 +121,7 @@ The build process performs the following steps:
    - Reads the compiled code from `dist/index.user.js`
    - Merges them together, prepending the metadata header to the compiled code
    - Writes the final `dist/index.user.js` file ready for installation
+   - Creates `dist/index.meta.js` containing only the metadata header (useful for update checks)
 
 The development server (`npm run dev`) runs both Vite's dev server and watch mode build concurrently, automatically rebuilding and serving the userscript whenever source files change.
 
@@ -133,7 +136,7 @@ The starter template includes:
 - **MESSAGES Object** - Centralized messages and error handling
 - **SolidJS Components** - Example `App` component demonstrating reactive UI
 - **Helper Functions**:
-  - `linkStyles()` - Function to inject CSS styles from `styles.css` into `<head>` as a `<link>` tag
+  - `injectStyles()` - Function to inject SCSS styles using `GM_addStyle` API
   - `lookForAppContainer()` - Waits for DOM elements to appear before rendering
   - `handleContainerNotFound()` - Error handling when container is not found
 
@@ -141,8 +144,8 @@ The starter template includes:
 
 The template includes an example that:
 
-- Waits for a container element with ID `container`
-- Loads CSS styles from `src/styles.css` and injects them into `<head>` as a `<link>` tag
+- Waits for a container element matching the selector `.container`
+- Loads SCSS styles from `src/styles/styles.scss` and injects them using `GM_addStyle` API
 - Renders a SolidJS component (`App`) with reactive state (counter example)
 
 Modify these functions and components to suit your needs!
@@ -156,7 +159,10 @@ Edit `vite.config.ts` to customize the build process. The configuration includes
 - Build entry point: `src/index.tsx`
 - Output file: `dist/index.user.js`
 - SolidJS plugin for JSX/TSX support
+- SCSS support with inline CSS import capability
 - Dev server on port 5173 with userscript serving middleware
+  - Automatic redirect from `/` to `/dist/index.user.js`
+  - Proper cache headers (`Cache-Control: max-age=5`) for Violentmonkey tracking
 - Post-build hook that runs `postbuild.js` automatically
 
 ### TypeScript
@@ -181,11 +187,11 @@ Modify the `.prettierrc` file to customize formatting options.
 
 ### Stylelint
 
-Edit `stylelint.config.js` to customize CSS linting rules. The configuration includes:
+Edit `stylelint.config.js` to customize CSS/SCSS linting rules. The configuration includes:
 
 - Standard Stylelint rules
 - Clean order plugin for CSS property ordering
-- Support for CSS files and CSS-in-JS (tagged template literals)
+- Support for SCSS files and CSS-in-JS (tagged template literals)
 
 ## Publishing
 
