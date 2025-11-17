@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build",
     "dev": "concurrently \"vite\" \"vite build --watch\"",
     "format": "prettier --write src/**/*.{js,ts}",
     "stylelint": "stylelint src/**/*.{js,ts}",
