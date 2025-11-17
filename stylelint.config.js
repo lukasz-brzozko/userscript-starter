@@ -6,4 +6,9 @@ export default {
       files: ["**/*.{js,jsx,ts,tsx}"],
     },
   ],
+  plugins: ["stylelint-scss"],
+  rules: {
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
+  },
 };
