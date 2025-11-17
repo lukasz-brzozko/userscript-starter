@@ -6,7 +6,7 @@
 // @author       Łukasz Brzózko
 // @match        https://github.com/
 // @icon         https://github.githubassets.com/favicons/favicon.png
-// @updateURL    https://raw.githubusercontent.com/lukasz-brzozko/userscript-starter/main/dist/index.meta.js
-// @downloadURL  https://raw.githubusercontent.com/lukasz-brzozko/userscript-starter/main/dist/index.user.js
+// @updateURL    https://lukasz-brzozko.github.io/userscript-starter/index.meta.js
+// @downloadURL  https://lukasz-brzozko.github.io/userscript-starter/index.user.js
 // @grant        GM_addStyle
 // ==/UserScript==
