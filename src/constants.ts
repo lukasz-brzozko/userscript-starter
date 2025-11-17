@@ -3,7 +3,7 @@ export const IDS = {
 } as const;
 
 export const SELECTORS = {
-  container: `#${IDS.container}`,
+  container: `.container`,
 } as const;
 
 export const MESSAGES = {

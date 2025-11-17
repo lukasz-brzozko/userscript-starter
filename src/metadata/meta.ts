@@ -8,5 +8,5 @@
 // @icon         https://github.githubassets.com/favicons/favicon.png
 // @updateURL    https://raw.githubusercontent.com/lukasz-brzozko/userscript-starter/main/dist/index.meta.js
 // @downloadURL  https://raw.githubusercontent.com/lukasz-brzozko/userscript-starter/main/dist/index.user.js
-// @grant        none
+// @grant        GM_addStyle
 // ==/UserScript==
