@@ -13,9 +13,6 @@ export default defineConfig({
       input: "src/index.tsx",
       output: { entryFileNames: "index.user.js" },
     },
-    watch: {
-      include: "src/**/*",
-    },
   },
   plugins: [
     solid(),
