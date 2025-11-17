@@ -1,7 +1,7 @@
 import { IDS, MESSAGES } from "@/constants";
 
 export const lookForAppContainer = async (): Promise<{
-  container: HTMLElement;
+  container: Element;
 }> => {
   return new Promise((resolve, reject) => {
     const maxAttempts = 50;
