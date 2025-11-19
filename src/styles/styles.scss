@@ -1,1 +1,5 @@
-@use "./_base.scss";
+/* Base styles */
+@forward "./_base.scss";
+
+/* Component styles */
+@forward "../components/Counter/_Counter.scss";

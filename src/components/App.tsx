@@ -1,13 +1,9 @@
-import { createSignal } from "solid-js";
+import Counter from "@/components/Counter/Counter";
 
-export const App = () => {
-  const [count, setCount] = createSignal(0);
-
+export default function App() {
   return (
-    <div class="container">
-      <h1>Hello World with SolidJs!</h1>
-      <p>Count: {count()}</p>
-      <button onClick={() => setCount(count() + 1)}>Increment</button>
+    <div class="custom-container">
+      <Counter />
     </div>
   );
-};
+}

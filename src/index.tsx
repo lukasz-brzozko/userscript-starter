@@ -1,5 +1,6 @@
 import { render } from "solid-js/web";
-import { App } from "@/components/App";
+
+import App from "@/components/App";
 import { handleContainerNotFound, lookForAppContainer } from "@/utils/dom";
 import { injectStyles } from "@/utils/styles";
 
